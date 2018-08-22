@@ -1,0 +1,7 @@
+// Punto inicial 
+@import 'lib/compass/reset';
+@import 'lib/compass/css3';
+@import 'lib/compass/utilities/general/clearfix';
+@import 'utils'; // utilidades de la app y variables. Puede tener referencias al directorio utils.
+@import 'base'; // Estilos de etiqueta
+@import 'modules'; // Estilos de los modulos puede incluir referencias al directorio modules.

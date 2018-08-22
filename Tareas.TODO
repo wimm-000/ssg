@@ -1,0 +1,4 @@
+TAREAS PENDIENTES y optimizaciones:
+✔ Quitar compass en favor de Sass y cargar la libreria como archivos. @done (8/22/2018, 10:35:40 AM)
+✔ Al añadir imagenes actualizar y no tener que reiniciar el server @done (8/22/2018, 10:49:54 AM)
+✔ Al añadir gulp files ejecutar accion correspondiente @done (8/22/2018, 11:07:46 AM)

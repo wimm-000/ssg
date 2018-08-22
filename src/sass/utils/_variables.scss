@@ -1,0 +1,31 @@
+// Colores de la app
+$main-background-color: white;
+$main-font: 'Canaro medium',
+sans-serif;
+$highlight-color: #dc5c14; //#fc222a
+$text-color: #636363;
+$text-instrucciones-color: #848689;
+$alternative-color: $text-color; //#fc222a
+$naranja: $highlight-color;
+$alternative-text-color: black;
+$wrapper-border-color: #b1b1b1;
+$background-color: white;
+$boton-color: $highlight-color;
+$boton-color-diabled: rgba(#f9f9f9, 1);
+$boton-hover-color: rgba($highlight-color, 1);
+$borde-video-color: #e77514;
+$shadow-color: rgba(0, 0, 0, 0.5);
+$gris: lighten($text-instrucciones-color, 20);
+// Variables de configuracion.
+$ancho-app: 1247;
+// heredadas de formualrio original
+$fondo: #FFFFFF;
+$naranja: #ee8933;
+$azul: #2593d2;
+$verde: #34ab52;
+$grisc: #f3f3f3;
+$griso: #d0cdcf;
+$grism: #e5e5e5;
+$rojo: #df4025;
+$oscuro: #262626;
+$error: #bd1a00;

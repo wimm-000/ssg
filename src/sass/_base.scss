@@ -1,0 +1,56 @@
+// Estilos base de los tags
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: $main-font;
+    color: $alternative-color;
+    line-height: 1.4;
+    min-height: 100%;
+    background: $main-background-color;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+input,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-bottom: em(0);
+}
+
+canvas {
+    display: block;
+}
+
+*:focus {
+    outline: none;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}

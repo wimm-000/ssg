@@ -1,0 +1,86 @@
+@import 'utils/variables';
+@import 'utils/respond-to';
+@import 'utils/fonts';
+// Funciones
+// Funcion para el calculo en procentage de altura.
+@function flex-height( $height, $maxheight: $maxheight) {
+    @return #{(($height / $maxheight) * 100)}vh;
+}
+
+// Convierte valres a em,
+$browser-context: 16; // Valor por defecto.
+@function em($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}em;
+}
+
+@import 'utils/errors';
+$baseContext: $ancho-app;
+@function flex-width($target, $context: $baseContext) {
+    @return percentage($target/$context);
+}
+
+@function makemeasquare($target, $context: $baseContext) {
+    $p: ($target / $context) * 100;
+    @return $p * 1vw;
+}
+
+@mixin video-responsive($width, $height) {
+    position: relative;
+    padding-bottom: ($height / $width) * 100%;
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%
+    }
+}
+
+@mixin trapezoid($margin-top: 200px, $margin-bottom: 200px, $width: 140%, $left:-50%, $perspective: .8em, $rotateY: 0.5deg) {
+    position: relative;
+    display: block;
+    margin-top: $margin-top;
+    margin-bottom: $margin-bottom;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: $width;
+        left: $left;
+        z-index: -1;
+        background: $highlight-color;
+        @include transform(perspective($perspective) rotateY($rotateY));
+    }
+}
+
+@mixin position-absolute($left, $width, $context: $baseContext) {
+    position: absolute;
+    left: flex-width($left, $context);
+    width: flex-width($width, $context);
+}
+
+@mixin my-flex-display($valign: flex-start, $justify: flex-start, $direcction: row) {
+    @include display-flex();
+    @if $valign !=flex-start {
+        @include align-items($valign);
+    }
+    @if $justify !=flex-start {
+        @include justify-content($justify);
+    }
+    @if $direcction !=row {
+        @include flex-direction($direcction);
+    }
+}
+
+@mixin boton ($color, $width, $height) {
+    @include display-flex;
+    @include align-items(center);
+    @include justify-content(center);
+    height: $height;
+    border: 4px solid $color;
+    color: $oscuro;
+    text-align: center;
+    width: $width;
+}

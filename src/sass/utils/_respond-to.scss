@@ -1,0 +1,19 @@
+// Breakpoints.
+$responsive: true;
+$breakpoints: ( 'full': (max-width: 1200px), 'wide': (max-width: 1024px), 'viewport': (max-width: 980px), 'tall': (max-width: 768px), 'small': (max-width: 650px), 'mini': (max-width: 375px));
+// Mixin para responsive uso @include respond-to(full) {....}
+@mixin respond-to($breakpoint) {
+    // If the key exists in the map
+    @if $responsive {
+        @if map-has-key($breakpoints, $breakpoint) {
+            // Prints a media query based on the value
+            @media #{inspect(map-get($breakpoints, $breakpoint))} {
+                @content;
+            }
+        }
+        // If the key doesn't exist in the map
+        @else {
+            @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "+"Please make sure it is defined in `$breakpoints` map.";
+        }
+    }
+}

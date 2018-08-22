@@ -1,0 +1,27 @@
+.cookies-consent {
+    position: fixed;
+    display: none;
+    &__contenido {
+        @include justify-content(space-between);
+        @include align-items(center);
+        @include display-flex;
+    }
+    padding: em(20);
+    z-index: 200;
+    width: 100%;
+    bottom: 0;
+    a {
+        display: inline-block;
+    }
+    background-color: rgba(black, 0.5);
+    color: white;
+    font-family: Helvetica,
+    Arial,
+    sans-serif;
+    a.aceptar-cookie {
+        background-color: white;
+        color: black;
+        @include border-radius(5px);
+        padding: em(10);
+    }
+}
