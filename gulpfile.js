@@ -19,7 +19,7 @@ var replace = require('gulp-replace')
 var beeper = require('beeper')
 var notify = require('gulp-notify')
 var plumber = require('gulp-plumber')
-var gutil = require('gulp-util')
+var log = require('fancy-log');
 
 var urlfiles = './src/'
 var deployUrl = './build/'
@@ -34,7 +34,7 @@ var onError = function (err) { // Custom error msg with beep sound and text colo
   })(err)
   beeper(3)
   this.emit('end')
-  gutil.log(gutil.colors.red(err))
+  log.error(err)
 }
 
 /**
