@@ -19,7 +19,8 @@ var replace = require('gulp-replace')
 var beeper = require('beeper')
 var notify = require('gulp-notify')
 var plumber = require('gulp-plumber')
-var log = require('fancy-log');
+var log = require('fancy-log')
+var watchify = require('watchify') // Watchify for source changes
 
 var urlfiles = './src/'
 var deployUrl = './build/'
@@ -91,24 +92,36 @@ gulp.task('js-pack-babel', function () {
     .pipe(gulp.dest(deployUrl + 'js'))
 })
 
-gulp.task('js-watch', [jsMode], reload)
+gulp.task('js-watch', [jsMode])
 
 /**
  * Arrancamos el proyecto con el javascript es6 y browswrify & babel
  */
 gulp.task('js-browserify-babel', function () {
-  browserify({ entries: main, debug: true })
+  browserify({
+    entries: [main],
+    debug: true,
+    cache: {},
+    packageCache: {},
+    plugin: [watchify]
+  })
+    .plugin(watchify, {
+      ignoreWatch: ['**/node_modules/**'],
+      delay: 100,
+      poll: false
+    })
     .transform(babelify, {
-      presets: ['env']
+      presets: ['@babel/env']
     })
     .bundle()
-    .on('error', function (err) { console.error(err); this.emit('end') })
-    .pipe(source('main.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(deployUrl + 'js'))
-    .on('end', function () {
-      browserSync.reload()
+    .on('error', function (err) { 
+      console.error(err)
+      browserSync.notify(err.message, 3000) 
+      this.emit('end') 
     })
+    .pipe(source('main.js'))
+    .pipe(gulp.dest(deployUrl + 'js'))
+    .pipe(browserSync.stream({ once: true }))
 })
 
 /**
@@ -138,6 +151,8 @@ gulp.task('copy-static-files', function () {
     .pipe(gulp.dest(deployUrl + 'videos'))
   gulp.src(urlfiles + 'txt/**/*')
     .pipe(gulp.dest(deployUrl + 'txt'))
+  gulp.src(urlfiles + 'images/**/*')
+    .pipe(gulp.dest(deployUrl + 'images'))
 })
 
 /**
@@ -185,7 +200,8 @@ gulp.task('default', ['templates-pug', 'images-optimize', 'sass', jsMode, 'copy-
   })
 
   gulp.watch(urlfiles + 'sass/**/*.scss', ['sass'])
-  gulp.watch(urlfiles + 'js/**/*.js', ['js-watch'])
+  gulp.watch('js/**/*.js', { cwd: urlfiles }, ['js-watch'])
   gulp.watch('**/*.pug', { cwd: urlfiles }, ['templates-pug'])
-  gulp.watch('images/**/*.{png,jpg,jpeg,gif,svg}', { cwd: urlfiles }, ['images-optimize'])
+  gulp.watch('images/**/*.{png,jpg,jpeg,gif,svg,json}', { cwd: urlfiles }, ['copy-static-files'])
 })
+
